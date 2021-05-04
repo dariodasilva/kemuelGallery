@@ -1,3 +1,6 @@
+// Example of Image Picker in React Native
+// https://aboutreact.com/example-of-image-picker-in-react-native/
+
 // Import React
 import React, {useState} from 'react';
 // Import required components
@@ -138,14 +141,16 @@ const App = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-
+      <Text style={styles.titleText}>
+        Example of Image Picker in React Native
+      </Text>
       <View style={styles.container}>
-        <Image
+        {/* <Image
           source={{
             uri: 'data:image/jpeg;base64,' + filePath.data,
           }}
           style={styles.imageStyle}
-        />
+        /> */}
         <Image
           source={{uri: filePath.uri}}
           style={styles.imageStyle}
@@ -154,8 +159,30 @@ const App = () => {
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
+          onPress={() => captureImage('photo')}>
+          <Text style={styles.textStyle}>
+            Launch Camera for Image
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonStyle}
+          onPress={() => captureImage('video')}>
+          <Text style={styles.textStyle}>
+            Launch Camera for Video
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonStyle}
           onPress={() => chooseFile('photo')}>
           <Text style={styles.textStyle}>Choose Image</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonStyle}
+          onPress={() => chooseFile('video')}>
+          <Text style={styles.textStyle}>Choose Video</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -190,8 +217,8 @@ const styles = StyleSheet.create({
     width: 250,
   },
   imageStyle: {
-    width: 50,
-    height: 50,
+    width: 200,
+    height: 200,
     margin: 5,
   },
-});
+}); 
