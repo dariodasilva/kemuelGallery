@@ -13,17 +13,23 @@ import {
   Image,
   Platform,
   PermissionsAndroid,
+  Modal
 } from 'react-native';
 
 // Import Image Picker
-import ImagePicker from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
 import {
   launchCamera,
   launchImageLibrary
 } from 'react-native-image-picker';
 
+''// Import vector icons
+import Icon from 'react-native-vector-icons/Feather';
+
 const App = () => {
   const [filePath, setFilePath] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
@@ -141,22 +147,22 @@ const App = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>
-        Example of Image Picker in React Native
-      </Text>
-      <View style={styles.container}>
-        {/* <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + filePath.data,
-          }}
-          style={styles.imageStyle}
-        /> */}
-        <Image
-          source={{uri: filePath.uri}}
-          style={styles.imageStyle}
-        />
-        <Text style={styles.textStyle}>{filePath.uri}</Text>
+
+      <Modal visible={modalOpen} animationType='slide'>
+        <View>
+        <Icon name="x-circle" 
+                size={30} 
+                color="#900"
+                onPress={() => setModalOpen(false)} />
+          <Text>Hello from the modal ;)</Text>
+          
         <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.buttonStyle}
+          onPress={() => chooseFile('photo')}>
+          <Text style={styles.textStyle}>Choose Image</Text>
+        </TouchableOpacity>
+                <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
           onPress={() => captureImage('photo')}>
@@ -164,6 +170,32 @@ const App = () => {
             Launch Camera for Image
           </Text>
         </TouchableOpacity>
+
+        </View>
+      </Modal>
+
+      <Text style={styles.titleText}>
+        Example of Image Picker in React Native
+      </Text>
+
+      <View style={styles.container}>
+        {/* <Image
+          source={{
+            uri: 'data:image/jpeg;base64,' + filePath.data,
+          }}
+          style={styles.imageStyle}
+        /> */}
+
+      <Icon name="plus-circle"
+            size={30}
+            onPress={() => setModalOpen(true)}
+      />
+        <Image
+          source={{uri: filePath.uri}}
+          style={styles.imageStyle}
+        />
+        <Text style={styles.textStyle}>{filePath.uri}</Text>
+
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
@@ -172,12 +204,7 @@ const App = () => {
             Launch Camera for Video
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => chooseFile('photo')}>
-          <Text style={styles.textStyle}>Choose Image</Text>
-        </TouchableOpacity>
+
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
@@ -221,4 +248,4 @@ const styles = StyleSheet.create({
     height: 200,
     margin: 5,
   },
-}); 
+});
